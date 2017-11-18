@@ -1,5 +1,10 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿// <copyright company="XATA">
+//      Copyright (c) 2017 by Shogun, All Right Reserved
+// </copyright>
+// <author>Ivan Ivchenko</author>
+// <email>iivchenko@live.com</email>
+
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
