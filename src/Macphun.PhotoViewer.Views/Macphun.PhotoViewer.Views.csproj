@@ -49,5 +49,11 @@
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CADictionary.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Macphun.PhotoViewer.Wpf\Macphun.PhotoViewer.Wpf.csproj">
+      <Project>{378dee4b-3ae4-43a3-b487-158a08c79e3e}</Project>
+      <Name>Macphun.PhotoViewer.Wpf</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

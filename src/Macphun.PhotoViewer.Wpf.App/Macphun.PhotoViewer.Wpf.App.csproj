@@ -103,5 +103,23 @@
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CADictionary.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Macphun.PhotoViewer.ViewModels\Macphun.PhotoViewer.ViewModels.csproj">
+      <Project>{d8265e28-fbdc-42b3-bea0-a805dd8626cb}</Project>
+      <Name>Macphun.PhotoViewer.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Macphun.PhotoViewer.Views\Macphun.PhotoViewer.Views.csproj">
+      <Project>{40c3fd3f-47c2-45ca-9989-d7ac38ef88a5}</Project>
+      <Name>Macphun.PhotoViewer.Views</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Macphun.PhotoViewer.Wpf.Effects\Macphun.PhotoViewer.Wpf.Effects.csproj">
+      <Project>{06094a51-6de2-4556-b588-39ebb6e88f53}</Project>
+      <Name>Macphun.PhotoViewer.Wpf.Effects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Macphun.PhotoViewer.Wpf\Macphun.PhotoViewer.Wpf.csproj">
+      <Project>{378dee4b-3ae4-43a3-b487-158a08c79e3e}</Project>
+      <Name>Macphun.PhotoViewer.Wpf</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
