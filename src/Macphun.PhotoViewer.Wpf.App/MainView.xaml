@@ -4,9 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Macphun.PhotoViewer.Wpf.App"
+        xmlns:viewModels="clr-namespace:Macphun.PhotoViewer.ViewModels;assembly=Macphun.PhotoViewer.ViewModels"
+        xmlns:views="clr-namespace:Macphun.PhotoViewer.Views;assembly=Macphun.PhotoViewer.Views"
         mc:Ignorable="d"
-        Title="Macphun Photo Viewer" Height="350" Width="525" Icon="Icon.ico">
+        Title="Macphun Photo Viewer" 
+        Height="350" 
+        Width="525"
+        Icon="Icon.ico">
+    
+    <Window.DataContext>
+        <local:NavigationViewModel/>
+    </Window.DataContext>
+    
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModels:ThumbnailsViewModel}">
+            <views:ThumbnailView/>
+        </DataTemplate >
+
+        <DataTemplate DataType="{x:Type viewModels:ImagesViewModel}">
+            <views:ImagesView/>
+        </DataTemplate >
+    </Window.Resources>
+    
     <Grid>
-        
+        <ContentControl Content="{Binding SelectedViewModel}"/>
     </Grid>
 </Window>

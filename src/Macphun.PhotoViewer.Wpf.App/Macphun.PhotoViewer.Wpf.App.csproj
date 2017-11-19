@@ -74,6 +74,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="NavigationViewModel.cs" />
     <Compile Include="PhotoViewerApplication.xaml.cs">
       <DependentUpon>PhotoViewerApplication.xaml</DependentUpon>
       <SubType>Code</SubType>

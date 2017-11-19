@@ -51,8 +51,7 @@ namespace Macphun.PhotoViewer.Wpf.App
 
         private void SwitchToImageView()
         {
-            // TODO: Implement
-            throw new NotImplementedException();
+            _selectedViewModel = new ImagesViewModel(_uriRepository);
         }
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
