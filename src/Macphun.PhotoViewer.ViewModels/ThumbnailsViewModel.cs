@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using Macphun.PhotoViewer.Wpf;
 
 namespace Macphun.PhotoViewer.ViewModels
@@ -27,32 +28,49 @@ namespace Macphun.PhotoViewer.ViewModels
 
             _uriRepository = uriRepository;
 
-            Thumbnails = new ObservableCollection<ThumbnailViewModel>();
+            Thumbnails = new ObservableCollection<BitmapImage>();
         }
 
-        public ObservableCollection<ThumbnailViewModel> Thumbnails { get; }
+        public ObservableCollection<BitmapImage> Thumbnails { get; }
 
         public ICommand AddThumbnailsCommand => new DelegateCommand<IEnumerable<string>>(AddThumbnailsAsync);
 
-        private IEnumerable<ThumbnailViewModel> AddThumbnails(IEnumerable<string> paths)
+        private static BitmapImage Load(Uri uri, int size)
         {
-            var uris = paths.Select(x => new Uri(x)).ToList();
+            var bitmap = new BitmapImage();
 
-            foreach (var uri in uris)
-            {
-                _uriRepository.Add(uri);
-            }
+            bitmap.BeginInit();
 
-            return uris.Select(x => new ThumbnailViewModel(x));
+            bitmap.UriSource = uri;
+
+            bitmap.DecodePixelWidth = size;
+            bitmap.EndInit();
+            bitmap.Freeze();
+
+            return bitmap;
         }
 
         private async void AddThumbnailsAsync(IEnumerable<string> paths)
         {
-            var thumbnails = await Task.Factory.StartNew(() => AddThumbnails(paths));
+            var uris = new List<Uri>();
 
-            foreach (var thumbnail in thumbnails)
+            await Task.Factory.StartNew(() =>
             {
-                Thumbnails.Add(thumbnail);
+                uris.AddRange(paths.Select(x => new Uri(x)));
+
+                foreach (var uri in uris)
+                {
+                    _uriRepository.Add(uri);
+                }
+            });
+
+            foreach (var uri in uris)
+            {
+                await Task.Delay(1);
+
+                var image = await Task.Factory.StartNew(() => Load(uri, 200));
+
+                Thumbnails.Add(image);
             }
         }
     }

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using Macphun.PhotoViewer.ViewModels;
 
 namespace Macphun.PhotoViewer.Wpf.App
@@ -23,7 +24,9 @@ namespace Macphun.PhotoViewer.Wpf.App
         public NavigationViewModel()
         {
             _uriRepository = new List<Uri>();
-            SelectedViewModel = _thumbnailsViewModel = new ThumbnailsViewModel(_uriRepository);
+            _thumbnailsViewModel = new ThumbnailsViewModel(_uriRepository);
+
+            SwitchToThumbnailView();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -42,16 +45,18 @@ namespace Macphun.PhotoViewer.Wpf.App
 
         public ICommand SwitchToThumbnailViewCommand => new RelayCommand(SwitchToThumbnailView);
 
-        public ICommand SwitchToImageViewCommand => new RelayCommand(SwitchToImageView);
+        public ICommand SwitchToImageViewCommand => new DelegateCommand<BitmapImage>(SwitchToImageView);
 
         private void SwitchToThumbnailView()
         {
-            SelectedViewModel = _thumbnailsViewModel;
+            SelectedViewModel = new NavigationThumbnailsViewModel(_thumbnailsViewModel, SwitchToImageViewCommand);
         }
 
-        private void SwitchToImageView()
+        private void SwitchToImageView(BitmapImage image)
         {
-            _selectedViewModel = new ImagesViewModel(_uriRepository);
+            var index = _thumbnailsViewModel.Thumbnails.IndexOf(image);
+            
+            SelectedViewModel = new NavigationImagesViewModel(new ImagesViewModel(_uriRepository, index), SwitchToThumbnailViewCommand);
         }
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

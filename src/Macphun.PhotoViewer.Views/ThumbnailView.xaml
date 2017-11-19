@@ -6,19 +6,19 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:macphun="clr-namespace:Macphun.PhotoViewer.Wpf;assembly=Macphun.PhotoViewer.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" >
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" AllowDrop="True">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" AllowDrop="True" Name="ThumbnailViewControl">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="Drop" >
-                <macphun:EventToCommandAction Command="{Binding AddThumbnailsCommand}">
+                <macphun:EventToCommandAction Command="{Binding ViewModel.AddThumbnailsCommand}">
                     <macphun:EventToCommandAction.ParametersConverter>
                         <macphun:DragArgsToFilePathsConverter/>
                     </macphun:EventToCommandAction.ParametersConverter>
                 </macphun:EventToCommandAction>
             </i:EventTrigger>
         </i:Interaction.Triggers>
-        <ItemsControl ItemsSource="{Binding Thumbnails}" Margin="5,5,5,5" HorizontalAlignment="Center">
+        <ItemsControl ItemsSource="{Binding ViewModel.Thumbnails}" Margin="5,5,5,5" HorizontalAlignment="Center">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal"/>
@@ -27,7 +27,11 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="AliceBlue" BorderThickness="2" Margin="5">
-                        <Image Source="{Binding Image}" Height="200" Width="200"/>
+                        <Image Source="{Binding}" Height="200" Width="200" >
+                            <Image.InputBindings>
+                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ElementName=ThumbnailViewControl, Path=DataContext.SwitchToImagesViewCommand}" CommandParameter="{Binding}"/>
+                            </Image.InputBindings>
+                        </Image>
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

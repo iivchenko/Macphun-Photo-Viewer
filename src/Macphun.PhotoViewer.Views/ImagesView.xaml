@@ -6,6 +6,11 @@
              xmlns:local="clr-namespace:Macphun.PhotoViewer.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding SwitchToThumbnailsViewCommand}" />
+        <KeyBinding Key="Up" Command="{Binding ViewModel.NextImageCommand}" />
+        <KeyBinding Key="Down" Command="{Binding ViewModel.PreviousImageCommand}" />
+    </UserControl.InputBindings>
     <UserControl.Resources>
         <Image x:Key="ArrowUp" Source="Resources/Arrow_Up.png"/>
         <Image x:Key="ArrowDown" Source="Resources/Arrow_Down.png"/>
@@ -16,13 +21,13 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <Image Grid.Column="0" Source="{Binding Image}"/>
+        <Image Grid.Column="0" Source="{Binding ViewModel.Image}"/>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center">
-            <Button Width="50" Height="50" Content="{StaticResource ArrowUp}" Margin="2" Command="{Binding NextImageCommand}"/>
-            <Button Width="50" Height="50" Content="Blur" Margin="2"/>
-            <Button Width="50" Height="50" Content="{StaticResource ArrowDown}" Margin="2" Command="{Binding PreviousImageCommand}"/>
+            <Button Width="50" Height="50" Content="{StaticResource ArrowUp}" Margin="2" Command="{Binding ViewModel.NextImageCommand}"/>
+            <Button Name="Blur" Width="50" Height="50" Content="Blur" Margin="2"/>
+            <Button Width="50" Height="50" Content="{StaticResource ArrowDown}" Margin="2" Command="{Binding ViewModel.PreviousImageCommand}"/>
         </StackPanel>
-        
+
     </Grid>
 </UserControl>

@@ -22,7 +22,7 @@ namespace Macphun.PhotoViewer.ViewModels
 
         private int _currentIndex;
 
-        public ImagesViewModel(IList<Uri> uris)
+        public ImagesViewModel(IList<Uri> uris, int selected)
         {
             if (uris == null)
             {
@@ -31,7 +31,8 @@ namespace Macphun.PhotoViewer.ViewModels
 
             _uris = uris;
 
-            _currentIndex = 0;
+            _currentIndex = selected;
+            _image = Load(_uris[_currentIndex]);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

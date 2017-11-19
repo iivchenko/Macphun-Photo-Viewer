@@ -17,16 +17,16 @@
     </Window.DataContext>
     
     <Window.Resources>
-        <DataTemplate DataType="{x:Type viewModels:ThumbnailsViewModel}">
+        <DataTemplate DataType="{x:Type viewModels:NavigationThumbnailsViewModel}">
             <views:ThumbnailView/>
         </DataTemplate >
 
-        <DataTemplate DataType="{x:Type viewModels:ImagesViewModel}">
+        <DataTemplate DataType="{x:Type viewModels:NavigationImagesViewModel}">
             <views:ImagesView/>
         </DataTemplate >
     </Window.Resources>
-    
+
     <Grid>
-        <ContentControl Content="{Binding SelectedViewModel}"/>
+        <ContentControl Name="Views" Content="{Binding SelectedViewModel}"/>
     </Grid>
 </Window>
