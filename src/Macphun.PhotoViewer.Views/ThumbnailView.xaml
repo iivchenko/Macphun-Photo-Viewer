@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="Macphun.PhotoViewer.Views.ThumbnailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:macphun="clr-namespace:Macphun.PhotoViewer.Wpf;assembly=Macphun.PhotoViewer.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" AllowDrop="True">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Drop" >
+                <macphun:EventToCommandAction Command="{Binding AddThumbnailsCommand}">
+                    <macphun:EventToCommandAction.ParametersConverter>
+                        <macphun:DragArgsToFilePathsConverter/>
+                    </macphun:EventToCommandAction.ParametersConverter>
+                </macphun:EventToCommandAction>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <ItemsControl ItemsSource="{Binding Thumbnails}" Margin="5,5,5,5" HorizontalAlignment="Center">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="AliceBlue" BorderThickness="2" Margin="5">
+                        <Image Source="{Binding Image}" Height="200" Width="200"/>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
+
+</UserControl>
+
+
+
