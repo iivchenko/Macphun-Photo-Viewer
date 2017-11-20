@@ -52,25 +52,19 @@ namespace Macphun.PhotoViewer.ViewModels
 
         private async void AddThumbnailsAsync(IEnumerable<string> paths)
         {
-            var uris = new List<Uri>();
-
-            await Task.Factory.StartNew(() =>
-            {
-                uris.AddRange(paths.Select(x => new Uri(x)));
-
-                foreach (var uri in uris)
-                {
-                    _uriRepository.Add(uri);
-                }
-            });
-
-            foreach (var uri in uris)
+            foreach (var uri in paths.Select(x => new Uri(x)))
             {
                 await Task.Delay(1);
 
-                var image = await Task.Factory.StartNew(() => Load(uri, 200));
-
-                Thumbnails.Add(image);
+                try
+                {
+                    var image = await Task.Factory.StartNew(() => Load(uri, 200));
+                    Thumbnails.Add(image);
+                    _uriRepository.Add(uri);
+                }
+                catch
+                {
+                }
             }
         }
     }
